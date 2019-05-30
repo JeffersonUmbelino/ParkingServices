@@ -1,5 +1,6 @@
 'use strict'
 
+const Helpers = use('Helpers')
 const Parking = use('App/Models/Parking')
 
 class ParkingController {
