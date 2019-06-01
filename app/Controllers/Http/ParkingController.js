@@ -2,23 +2,27 @@
 
 const Helpers = use('Helpers')
 const Parking = use('App/Models/Parking')
+const Geo = require('geo-nearby');
 
 class ParkingController {
 
   //listas or registros
   async index ({request}) {
 
-    const { latitude, longitude } = request.all()
+  
 
-    const parkings = Parking.query()
-      
+    const {latitude, longitude} = request.all()
+    const dist = 5000;
+    const parkings = await Parking
+      .query()
       .with('images')
-      
-      //filtra os estacionamentos num raio de 10 km
-      .nearBy(latitude, longitude, 10)
       .fetch()
 
-    return parkings
+    const dataset = new Geo(parkings.rows, {setOptions: {id: 'id', lat: 'latitude', lon: 'longitude'}});
+    const nears = dataset.nearBy(latitude, longitude, dist);
+    const nearside = nears.map(g => g.i);
+    parkings.rows = parkings.rows.filter( (r) => nearside.includes(r.id) );
+    return parkings;
 
   }
 
