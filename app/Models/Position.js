@@ -5,6 +5,11 @@ const Model = use('Model')
 
 class Position extends Model {
 
+
+
+
+    
+
     //uma posição pertence a um estacionamento
     parkings(){
         this.belongsTo('App/Models/Parking')

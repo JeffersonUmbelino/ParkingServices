@@ -20,7 +20,7 @@ class PositionSchema extends Schema {
           .integer('parking_id')
           .unsigned()
           .references('id')
-          .inTable('users')
+          .inTable('parkings')
           .onUpdate('CASCADE')
           .onDelete('CASCADE')
       

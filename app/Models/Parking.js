@@ -31,6 +31,7 @@ class Parking extends Model {
 		return this.hasMany('App/Models/User')
 	}
 	
+	//estacionamento pode ter varias vagas
 	position(){
 		return this.hasMany('App/Models/Position')
 	}
