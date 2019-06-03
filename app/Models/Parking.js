@@ -27,12 +27,20 @@ class Parking extends Model {
 
 
 	user(){
-		return this.belongsTo('App/Models/User')
+		//estacionamento pode ter varios usuarios
+		return this.hasMany('App/Models/User')
 	}
 	
+	position(){
+		return this.hasMany('App/Models/Position')
+	}
+
+
 	images(){
 		return this.hasMany('App/Models/Image')
 	}
+
+
 }
 
 module.exports = Parking

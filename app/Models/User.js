@@ -40,9 +40,15 @@ class User extends Model {
     return this.hasMany('App/Models/Token')
   }
   
-  //adiciona relação usuario - estacionamentos
+  //usuario estaciona em um - muitos estacionamentos.
+  //hasmany =  um - muitos (Usuario - Estacionamento)
   parkings(){
 	  return this.hasMany('App/Models/Parking')
+  }
+
+  //Usuario estaciona em uma vaga.
+  positions(){
+    return this.hasOne('App/Models/Position')
   }
 }
 

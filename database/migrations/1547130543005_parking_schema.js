@@ -12,13 +12,12 @@ class ParkingSchema extends Schema {
       table.increments()
 	  
 		table
-		
-		.integer('user_id')
-		.unsigned()
-		.references('id')
-		.inTable('users')
-		.onUpdate('CASCADE')
-        .onDelete('CASCADE')
+			.integer('user_id')
+			.unsigned()
+			.references('id')
+			.inTable('users')
+			.onUpdate('CASCADE')
+			.onDelete('CASCADE')
 		
 	  table.string('title').notNullable()
 	  table.string('address').notNullable()
