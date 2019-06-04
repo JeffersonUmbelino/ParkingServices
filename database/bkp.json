@@ -1,0 +1,676 @@
+{
+    "type": "database",
+    "name": "parking.db",
+    "objects": [
+        {
+            "type": "table",
+            "database": null,
+            "name": "adonis_schema",
+            "withoutRowId": true,
+            "ddl": "CREATE TABLE `adonis_schema` (`id` integer not null primary key autoincrement, `name` varchar(255), `batch` integer, `migration_time` datetime default CURRENT_TIMESTAMP)",
+            "columns": [
+                {
+                    "name": "id",
+                    "type": "integer",
+                    "constraints": [
+                        {
+                            "type": "NOT NULL",
+                            "definition": "not null "
+                        },
+                        {
+                            "type": "PRIMARY KEY",
+                            "definition": "primary key autoincrement"
+                        }
+                    ]
+                },
+                {
+                    "name": "name",
+                    "type": "varchar"
+                },
+                {
+                    "name": "batch",
+                    "type": "integer"
+                },
+                {
+                    "name": "migration_time",
+                    "type": "datetime",
+                    "constraints": [
+                        {
+                            "type": "DEFAULT",
+                            "definition": "default CURRENT_TIMESTAMP"
+                        }
+                    ]
+                }
+            ],
+            "rows": [
+                [
+                    6,
+                    "1503250034279_user",
+                    1,
+                    "2019-06-03 21:12:05"
+                ],
+                [
+                    7,
+                    "1503250034280_token",
+                    1,
+                    "2019-06-03 21:12:05"
+                ],
+                [
+                    8,
+                    "1547130543005_parking_schema",
+                    1,
+                    "2019-06-03 21:12:06"
+                ],
+                [
+                    9,
+                    "1547134561717_image_schema",
+                    1,
+                    "2019-06-03 21:12:06"
+                ],
+                [
+                    10,
+                    "1559588810877_position_schema",
+                    1,
+                    "2019-06-03 21:12:06"
+                ]
+            ]
+        },
+        {
+            "type": "table",
+            "database": null,
+            "name": "images",
+            "withoutRowId": true,
+            "ddl": "CREATE TABLE `images` (`id` integer not null primary key autoincrement, `parking_id` integer, `path` varchar(255) not null, `created_at` datetime, `updated_at` datetime, foreign key(`parking_id`) references `parkings`(`id`) on delete CASCADE on update CASCADE)",
+            "columns": [
+                {
+                    "name": "id",
+                    "type": "integer",
+                    "constraints": [
+                        {
+                            "type": "NOT NULL",
+                            "definition": "not null "
+                        },
+                        {
+                            "type": "PRIMARY KEY",
+                            "definition": "primary key autoincrement"
+                        }
+                    ]
+                },
+                {
+                    "name": "parking_id",
+                    "type": "integer"
+                },
+                {
+                    "name": "path",
+                    "type": "varchar",
+                    "constraints": [
+                        {
+                            "type": "NOT NULL",
+                            "definition": "not null"
+                        }
+                    ]
+                },
+                {
+                    "name": "created_at",
+                    "type": "datetime"
+                },
+                {
+                    "name": "updated_at",
+                    "type": "datetime"
+                }
+            ],
+            "constraints": [
+                {
+                    "type": "FOREIGN KEY",
+                    "definition": "foreign key(`parking_id`) references `parkings`(`id`) on delete CASCADE on update CASCADE"
+                }
+            ],
+            "rows": [
+            ]
+        },
+        {
+            "type": "table",
+            "database": null,
+            "name": "parkings",
+            "withoutRowId": true,
+            "ddl": "CREATE TABLE `parkings` (`id` integer not null primary key autoincrement, `user_id` integer, `title` varchar(255) not null, `address` varchar(255) not null, `total_vacancies` float, `price` float not null, `latitude` float, `longitude` float, `created_at` datetime, `updated_at` datetime, foreign key(`user_id`) references `users`(`id`) on delete CASCADE on update CASCADE)",
+            "columns": [
+                {
+                    "name": "id",
+                    "type": "integer",
+                    "constraints": [
+                        {
+                            "type": "NOT NULL",
+                            "definition": "not null "
+                        },
+                        {
+                            "type": "PRIMARY KEY",
+                            "definition": "primary key autoincrement"
+                        }
+                    ]
+                },
+                {
+                    "name": "user_id",
+                    "type": "integer"
+                },
+                {
+                    "name": "title",
+                    "type": "varchar",
+                    "constraints": [
+                        {
+                            "type": "NOT NULL",
+                            "definition": "not null"
+                        }
+                    ]
+                },
+                {
+                    "name": "address",
+                    "type": "varchar",
+                    "constraints": [
+                        {
+                            "type": "NOT NULL",
+                            "definition": "not null"
+                        }
+                    ]
+                },
+                {
+                    "name": "total_vacancies",
+                    "type": "float"
+                },
+                {
+                    "name": "price",
+                    "type": "float",
+                    "constraints": [
+                        {
+                            "type": "NOT NULL",
+                            "definition": "not null"
+                        }
+                    ]
+                },
+                {
+                    "name": "latitude",
+                    "type": "float"
+                },
+                {
+                    "name": "longitude",
+                    "type": "float"
+                },
+                {
+                    "name": "created_at",
+                    "type": "datetime"
+                },
+                {
+                    "name": "updated_at",
+                    "type": "datetime"
+                }
+            ],
+            "constraints": [
+                {
+                    "type": "FOREIGN KEY",
+                    "definition": "foreign key(`user_id`) references `users`(`id`) on delete CASCADE on update CASCADE"
+                }
+            ],
+            "rows": [
+                [
+                    1,
+                    1,
+                    "Lugar Nenhum",
+                    "Midgard ",
+                    30,
+                    0,
+                    -49.644018,
+                    -27.210768,
+                    "2019-06-03 19:10:29",
+                    "2019-06-03 19:10:29"
+                ],
+                [
+                    2,
+                    1,
+                    "CCET ",
+                    "UFMA ",
+                    30,
+                    0,
+                    -2.558517,
+                    -44.308068,
+                    "2019-06-03 19:14:09",
+                    "2019-06-03 19:14:09"
+                ],
+                [
+                    3,
+                    1,
+                    "Paulo Freire ",
+                    "UFMA ",
+                    100,
+                    0,
+                    -2.558946,
+                    -44.3111705,
+                    "2019-06-03 19:14:51",
+                    "2019-06-03 19:14:51"
+                ],
+                [
+                    4,
+                    1,
+                    "RU ",
+                    "UFMA ",
+                    50,
+                    0,
+                    -2.556878,
+                    -44.308315,
+                    "2019-06-03 19:15:23",
+                    "2019-06-03 19:15:23"
+                ],
+                [
+                    8,
+                    1,
+                    "Centro Historico ",
+                    "Praia Grande ",
+                    20,
+                    0,
+                    -2.532062,
+                    -44.306218,
+                    "2019-06-04 09:10:57",
+                    "2019-06-04 09:10:57"
+                ],
+                [
+                    9,
+                    1,
+                    "Nhozinho Santos ",
+                    "Fabril ",
+                    150,
+                    0,
+                    -2.536692,
+                    -44.289202,
+                    "2019-06-04 09:12:43",
+                    "2019-06-04 09:12:43"
+                ],
+                [
+                    11,
+                    2,
+                    "Espigão ",
+                    "Ponta D'areia ",
+                    300,
+                    0,
+                    -2.505237,
+                    -44.317885,
+                    "2019-06-04 09:16:02",
+                    "2019-06-04 09:16:02"
+                ],
+                [
+                    12,
+                    2,
+                    "São Luis Shopping ",
+                    "Jaracati ",
+                    500,
+                    0,
+                    -2.510341,
+                    -44.285668,
+                    "2019-06-04 09:24:49",
+                    "2019-06-04 09:24:49"
+                ]
+            ]
+        },
+        {
+            "type": "table",
+            "database": null,
+            "name": "positions",
+            "withoutRowId": true,
+            "ddl": "CREATE TABLE `positions` (`id` integer not null primary key autoincrement, `user_id` integer, `parking_id` integer, `occupation` boolean, `latitude` float, `longitude` float, `created_at` datetime, `updated_at` datetime, foreign key(`user_id`) references `users`(`id`) on delete CASCADE on update CASCADE, foreign key(`parking_id`) references `parkings`(`id`) on delete CASCADE on update CASCADE)",
+            "columns": [
+                {
+                    "name": "id",
+                    "type": "integer",
+                    "constraints": [
+                        {
+                            "type": "NOT NULL",
+                            "definition": "not null "
+                        },
+                        {
+                            "type": "PRIMARY KEY",
+                            "definition": "primary key autoincrement"
+                        }
+                    ]
+                },
+                {
+                    "name": "user_id",
+                    "type": "integer"
+                },
+                {
+                    "name": "parking_id",
+                    "type": "integer"
+                },
+                {
+                    "name": "occupation",
+                    "type": "boolean"
+                },
+                {
+                    "name": "latitude",
+                    "type": "float"
+                },
+                {
+                    "name": "longitude",
+                    "type": "float"
+                },
+                {
+                    "name": "created_at",
+                    "type": "datetime"
+                },
+                {
+                    "name": "updated_at",
+                    "type": "datetime"
+                }
+            ],
+            "constraints": [
+                {
+                    "type": "FOREIGN KEY",
+                    "definition": "foreign key(`user_id`) references `users`(`id`) on delete CASCADE on update CASCADE"
+                },
+                {
+                    "type": "FOREIGN KEY",
+                    "definition": "foreign key(`parking_id`) references `parkings`(`id`) on delete CASCADE on update CASCADE"
+                }
+            ],
+            "rows": [
+                [
+                    1,
+                    1,
+                    1,
+                    "true",
+                    -49.644018,
+                    -27.210768,
+                    "2019-06-03 19:10:29",
+                    "2019-06-03 19:10:29"
+                ],
+                [
+                    2,
+                    2,
+                    1,
+                    "true",
+                    -2.556878,
+                    -44.308315,
+                    "2019-06-03 19:15:23",
+                    "2019-06-03 19:15:23"
+                ],
+                [
+                    3,
+                    2,
+                    11,
+                    "true",
+                    -2.505237,
+                    -44.317885,
+                    "2019-06-04 09:16:02",
+                    "2019-06-04 09:16:02"
+                ],
+                [
+                    4,
+                    2,
+                    11,
+                    "true",
+                    -2.505237,
+                    -44.317885,
+                    "2019-06-04 09:16:02",
+                    "2019-06-04 09:16:02"
+                ],
+                [
+                    5,
+                    1,
+                    11,
+                    "true",
+                    -2.505237,
+                    -44.317885,
+                    "2019-06-04 09:16:02",
+                    "2019-06-04 09:16:02"
+                ],
+                [
+                    11,
+                    2,
+                    11,
+                    "true",
+                    -2.505237,
+                    -44.317885,
+                    "2019-06-04 09:16:02",
+                    "2019-06-04 09:16:02"
+                ],
+                [
+                    12,
+                    2,
+                    11,
+                    "true",
+                    -2.505237,
+                    -44.317885,
+                    "2019-06-04 09:16:02",
+                    "2019-06-04 09:16:02"
+                ],
+                [
+                    13,
+                    2,
+                    11,
+                    "true",
+                    -2.505237,
+                    -44.317885,
+                    "2019-06-04 09:16:02",
+                    "2019-06-04 09:16:02"
+                ],
+                [
+                    14,
+                    2,
+                    11,
+                    "true",
+                    -2.505237,
+                    -44.317885,
+                    "2019-06-04 09:16:02",
+                    "2019-06-04 09:16:02"
+                ],
+                [
+                    15,
+                    2,
+                    11,
+                    "true",
+                    -2.505237,
+                    -44.317885,
+                    "2019-06-04 09:16:02",
+                    "2019-06-04 09:16:02"
+                ],
+                [
+                    16,
+                    2,
+                    11,
+                    "true",
+                    -2.505237,
+                    -44.317885,
+                    "2019-06-04 09:16:02",
+                    "2019-06-04 09:16:02"
+                ],
+                [
+                    17,
+                    2,
+                    11,
+                    "true",
+                    -2.505237,
+                    -44.317885,
+                    "2019-06-04 09:16:02",
+                    "2019-06-04 09:16:02"
+                ]
+            ]
+        },
+        {
+            "type": "table",
+            "database": null,
+            "name": "tokens",
+            "withoutRowId": true,
+            "ddl": "CREATE TABLE `tokens` (`id` integer not null primary key autoincrement, `user_id` integer, `token` varchar(255) not null, `type` varchar(80) not null, `is_revoked` boolean default '0', `created_at` datetime, `updated_at` datetime, foreign key(`user_id`) references `users`(`id`))",
+            "columns": [
+                {
+                    "name": "id",
+                    "type": "integer",
+                    "constraints": [
+                        {
+                            "type": "NOT NULL",
+                            "definition": "not null "
+                        },
+                        {
+                            "type": "PRIMARY KEY",
+                            "definition": "primary key autoincrement"
+                        }
+                    ]
+                },
+                {
+                    "name": "user_id",
+                    "type": "integer"
+                },
+                {
+                    "name": "token",
+                    "type": "varchar",
+                    "constraints": [
+                        {
+                            "type": "NOT NULL",
+                            "definition": "not null"
+                        }
+                    ]
+                },
+                {
+                    "name": "type",
+                    "type": "varchar",
+                    "constraints": [
+                        {
+                            "type": "NOT NULL",
+                            "definition": "not null"
+                        }
+                    ]
+                },
+                {
+                    "name": "is_revoked",
+                    "type": "boolean",
+                    "constraints": [
+                        {
+                            "type": "DEFAULT",
+                            "definition": "default '0'"
+                        }
+                    ]
+                },
+                {
+                    "name": "created_at",
+                    "type": "datetime"
+                },
+                {
+                    "name": "updated_at",
+                    "type": "datetime"
+                }
+            ],
+            "constraints": [
+                {
+                    "type": "FOREIGN KEY",
+                    "definition": "foreign key(`user_id`) references `users`(`id`)"
+                }
+            ],
+            "rows": [
+            ]
+        },
+        {
+            "type": "table",
+            "database": null,
+            "name": "users",
+            "withoutRowId": true,
+            "ddl": "CREATE TABLE `users` (`id` integer not null primary key autoincrement, `username` varchar(80) not null, `email` varchar(254) not null, `password` varchar(60) not null, `created_at` datetime, `updated_at` datetime)",
+            "columns": [
+                {
+                    "name": "id",
+                    "type": "integer",
+                    "constraints": [
+                        {
+                            "type": "NOT NULL",
+                            "definition": "not null "
+                        },
+                        {
+                            "type": "PRIMARY KEY",
+                            "definition": "primary key autoincrement"
+                        }
+                    ]
+                },
+                {
+                    "name": "username",
+                    "type": "varchar",
+                    "constraints": [
+                        {
+                            "type": "NOT NULL",
+                            "definition": "not null"
+                        }
+                    ]
+                },
+                {
+                    "name": "email",
+                    "type": "varchar",
+                    "constraints": [
+                        {
+                            "type": "NOT NULL",
+                            "definition": "not null"
+                        }
+                    ]
+                },
+                {
+                    "name": "password",
+                    "type": "varchar",
+                    "constraints": [
+                        {
+                            "type": "NOT NULL",
+                            "definition": "not null"
+                        }
+                    ]
+                },
+                {
+                    "name": "created_at",
+                    "type": "datetime"
+                },
+                {
+                    "name": "updated_at",
+                    "type": "datetime"
+                }
+            ],
+            "rows": [
+                [
+                    1,
+                    "master",
+                    "master@test.com",
+                    "$2a$10$snvpgVp3\/pdb3ce4krabFeenxwKtxH4cdIhnwym4yUlovo1M8CGqG",
+                    "2019-06-03 18:45:44",
+                    "2019-06-03 18:45:44"
+                ],
+                [
+                    2,
+                    "root",
+                    "root@test.com",
+                    "$2a$10$MwGRK1R36xIEOMKLNDXVoO9niDJNLzffv6ggVbl\/c.HFfqc1azuCy",
+                    "2019-06-03 18:57:11",
+                    "2019-06-03 18:57:11"
+                ]
+            ]
+        },
+        {
+            "type": "index",
+            "database": null,
+            "name": "tokens_token_index",
+            "unique": false,
+            "ddl": "CREATE INDEX `tokens_token_index` on `tokens` (`token`)"
+        },
+        {
+            "type": "index",
+            "database": null,
+            "name": "tokens_token_unique",
+            "unique": true,
+            "ddl": "CREATE UNIQUE INDEX `tokens_token_unique` on `tokens` (`token`)"
+        },
+        {
+            "type": "index",
+            "database": null,
+            "name": "users_email_unique",
+            "unique": true,
+            "ddl": "CREATE UNIQUE INDEX `users_email_unique` on `users` (`email`)"
+        },
+        {
+            "type": "index",
+            "database": null,
+            "name": "users_username_unique",
+            "unique": true,
+            "ddl": "CREATE UNIQUE INDEX `users_username_unique` on `users` (`username`)"
+        }
+    ]
+}

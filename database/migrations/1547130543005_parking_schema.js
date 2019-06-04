@@ -20,7 +20,8 @@ class ParkingSchema extends Schema {
 			.onDelete('CASCADE')
 		
 	  table.string('title').notNullable()
-	  table.string('address').notNullable()
+		table.string('address').notNullable()
+		table.string('polygon').notNullable()
 	  table.decimal('total_vacancies').notNullable
 	  table.decimal('price').notNullable()
 	  table.decimal('latitude', 9, 6).notNullable

@@ -11,8 +11,8 @@ class ParkingController {
   //listas or registros
   async index({ request }) {
 
-    const { latitude, longitude } = request.all()
-    const dist = 5000;
+    const { latitude, longitude, distance } = request.all()
+    //const distance = 1000;
     const parkings = await Parking
       .query()
       .with('images')
@@ -20,7 +20,7 @@ class ParkingController {
 
     if (latitude && longitude) {
       const dataset = new Geo(parkings.rows, { setOptions: { id: 'id', lat: 'latitude', lon: 'longitude' } });
-      const nears = dataset.nearBy(latitude, longitude, dist);
+      const nears = dataset.nearBy(latitude, longitude, distance);
       const nearside = nears.map(g => g.i);
       parkings.rows = parkings.rows.filter((r) => nearside.includes(r.id));
     }
@@ -32,8 +32,9 @@ class ParkingController {
         .innerJoin('positions', 'parkings.id', 'positions.parking_id')
         .where({ "positions.occupation": "true", "parkings.id": r.id })
         .count();
-      return { "vacancies": r.total_vacancies - occupation[0]["count(*)"], "id": r.id } // adicionar os atributos que precisamos
+      return { "name": r.title,"vacancies": r.total_vacancies - occupation[0]["count(*)"], "id": r.id } // adicionar os atributos que precisamos
     }
+
     const getData = async () => {
       return await Promise.all(parkings.rows.map(item => anAsyncFunction(item)))
     }
@@ -47,31 +48,44 @@ class ParkingController {
   //exibição de registros
   async show({ params }) {
 
-    let occupation = await Database
-      .table('parkings')
-      .innerJoin('positions', 'parkings.id', 'positions.parking_id')
-      .where({ "positions.occupation": "true", "parkings.id": params.id })
-      .count();
-    // ainda falta adicionar a saida, talvez vamos ter que fazer o mesmo que no outro metodo, recriar um json
     
     const parkings = await Parking.findOrFail(params.id)
 
-    await parkings.load('images')
+      const anAsyncFunction = async p => {
 
-    return parkings
+      const occupation = await Database
+     
+
+    }
+
+    const getData = async () => {
+      
+    }
+    const rows = await getData()
+    return rows;
+
+   
+
+    
+
+    //await parkings.load('images')
+
+    //const parkings = await Parking.findOrFail(params.id)
+    //return parkings
 
   }
 
   //Cria novos registros
   async store({ auth, request, response }) {
 
-    const { id } = auth.user
+    const  { id }  = auth.user
     const data = request.only([
 
       'title',
       'address',
       'latitude',
       'longitude',
+      'polygon',
       'price',
       'total_vacancies'
 
@@ -95,6 +109,7 @@ class ParkingController {
       'address',
       'latitude',
       'longitude',
+      'polygon',
       'price',
       'total_vacancies'
 

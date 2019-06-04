@@ -26,7 +26,7 @@ Route.post('/sessions', 'SessionController.create')
 //cria a rota para todos os metodos de listagem, exibição, edição e remoção
 Route.resource('parkings','ParkingController')
 	 .apiOnly() //metodo excluido create e edit não tenham rotas.
-	// .middleware('auth') //apenas usuarios autenticados podem usar a rota.
+	 .middleware('auth') //apenas usuarios autenticados podem usar a rota.
 
 Route.post('parkings/:id/images', 'ImageController.store')
 	 .middleware('auth')
