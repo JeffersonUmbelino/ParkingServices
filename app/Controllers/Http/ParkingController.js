@@ -32,7 +32,10 @@ class ParkingController {
         .innerJoin('positions', 'parkings.id', 'positions.parking_id')
         .where({ "positions.occupation": "true", "parkings.id": r.id })
         .count();
-      return { "name": r.title,"vacancies": r.total_vacancies - occupation[0]["count(*)"], "id": r.id } // adicionar os atributos que precisamos
+      return { "title": r.title,"vacancies": r.total_vacancies - occupation[0]["count(*)"]
+                ,"id": r.id , "polygon" : r.polygon  , "total_vacancies": r.total_vacancies
+                , "latitude" : r.latitude , "longitude" : r.longitude
+              } // adicionar os atributos que precisamos
     }
 
     const getData = async () => {
@@ -48,31 +51,19 @@ class ParkingController {
   //exibição de registros
   async show({ params }) {
 
-    
+    let occupation = await Database
+      .table('parkings')
+      .innerJoin('positions', 'parkings.id', 'positions.parking_id')
+      .where({ "positions.occupation": "true", "parkings.id": params.id })
+      .count();
+
     const parkings = await Parking.findOrFail(params.id)
-
-      const anAsyncFunction = async p => {
-
-      const occupation = await Database
-     
-
-    }
-
-    const getData = async () => {
-      
-    }
-    const rows = await getData()
-    return rows;
-
-   
-
-    
-
     //await parkings.load('images')
-
-    //const parkings = await Parking.findOrFail(params.id)
-    //return parkings
-
+    const r = parkings
+    return { "title": r.title,"vacancies": r.total_vacancies - occupation[0]["count(*)"]
+    ,"id": r.id , "polygon" : r.polygon  , "total_vacancies": r.total_vacancies
+    , "latitude" : r.latitude , "longitude" : r.longitude
+      } 
   }
 
   //Cria novos registros
