@@ -32,7 +32,7 @@ class ParkingController {
         .innerJoin('positions', 'parkings.id', 'positions.parking_id')
         .where({ "positions.occupation": "true", "parkings.id": r.id })
         .count();
-      return { "title": r.title,"vacancies": r.total_vacancies - occupation[0]["count(*)"]
+      return { "title": r.title,"vacancies free": r.total_vacancies - occupation[0]["count(*)"]
                 ,"id": r.id , "polygon" : r.polygon  , "total_vacancies": r.total_vacancies
                 , "latitude" : r.latitude , "longitude" : r.longitude
               } // adicionar os atributos que precisamos
@@ -54,15 +54,14 @@ class ParkingController {
     let occupation = await Database
       .table('parkings')
       .innerJoin('positions', 'parkings.id', 'positions.parking_id')
-      .where({ "positions.occupation": "true", "parkings.id": params.id })
+      .where( { "positions.occupation": "true", "parkings.id": params.id } )
       .count();
 
     const parkings = await Parking.findOrFail(params.id)
-    //await parkings.load('images')
     const r = parkings
-    return { "title": r.title,"vacancies": r.total_vacancies - occupation[0]["count(*)"]
-    ,"id": r.id , "polygon" : r.polygon  , "total_vacancies": r.total_vacancies
-    , "latitude" : r.latitude , "longitude" : r.longitude
+    return { "title": r.title,"vacancies Free": r.total_vacancies - occupation[0]['count(*)']
+             ,"id": r.id , "polygon" : r.polygon  , "total_vacancies": r.total_vacancies
+             , "latitude" : r.latitude , "longitude" : r.longitude
       } 
   }
 
